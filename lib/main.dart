@@ -11,24 +11,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: GetBuilder<MainController>(
-      id: 'idCount',
-      init: MainController(),
-      builder: (ctrl) => Column(
-        children: [
-          TextButton.icon(
-              onPressed: () => ctrl.updateCount(),
-              icon: const Icon(Icons.add),
-              label: const Text('Increment')),
-          ListView.builder(
-            itemCount: 100,
-            itemBuilder: (context, index) {
-              return Text(' $index - count is: ${ctrl.count}');
-            },
-          )
-        ],
-      ),
-    ));
+    return GetMaterialApp(
+        title: 'GetXExampleUpdate',
+        debugShowCheckedModeBanner: false,
+        home: SafeArea(
+          child: Scaffold(
+              body: GetBuilder<MainController>(
+            id: 'idCount',
+            init: MainController(),
+            builder: (ctrl) => Column(
+              children: [
+                TextButton.icon(
+                    onPressed: () => ctrl.updateCount(),
+                    icon: const Icon(Icons.add),
+                    label: const Text('Increment')),
+                Flexible(
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: 100,
+                    itemBuilder: (context, index) {
+                      return Text(' $index - count is: ${ctrl.count}');
+                    },
+                  ),
+                )
+              ],
+            ),
+          )),
+        ));
   }
 }
